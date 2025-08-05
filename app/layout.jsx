@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        {/* Facebook Pixel Code */}
+        {/* Meta Pixel Code */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
               t.src=v;s=b.getElementsByTagName(e)[0];
               s.parentNode.insertBefore(t,s)}(window, document,'script',
               'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', 'FB_PIXEL_ID');
+              fbq('init', '24482502841374853');
               fbq('track', 'PageView');
             `,
           }}
@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
             height="1"
             width="1"
             style={{ display: 'none' }}
-            src="https://www.facebook.com/tr?id=FB_PIXEL_ID&ev=PageView&noscript=1"
+            src="https://www.facebook.com/tr?id=24482502841374853&ev=PageView&noscript=1"
             alt=""
           />
         </noscript>
