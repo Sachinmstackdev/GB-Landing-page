@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { trackPageView, trackLead } from './utils/facebookPixel'
+import { trackPageView as trackFbPageView, trackLead as trackFbLead } from './utils/facebookPixel'
+import { trackPageView as trackGtmPageView, trackCTAClick } from './utils/gtm'
 
 export default function LandingPage() {
   const [timeLeft, setTimeLeft] = useState({
@@ -14,15 +15,10 @@ export default function LandingPage() {
     // Track page view
     if (typeof window !== 'undefined') {
       // Facebook Pixel tracking
-      trackPageView()
+      trackFbPageView()
       
-      // Google Analytics tracking
-      if (window.gtag) {
-        window.gtag('event', 'page_view', {
-          page_title: 'Play & Earn Landing Page',
-          page_location: window.location.href
-        })
-      }
+      // Google Tag Manager tracking
+      trackGtmPageView()
     }
 
     // Countdown timer
@@ -58,13 +54,8 @@ export default function LandingPage() {
   const handleCTAClick = () => {
     // Track CTA click
     if (typeof window !== 'undefined') {
-      trackLead()
-      if (window.gtag) {
-        window.gtag('event', 'click', {
-          event_category: 'CTA',
-          event_label: 'Claim Cashback Button'
-        })
-      }
+      trackFbLead()
+      trackCTAClick('Claim Cashback Button', 'hero_section')
     }
     
     // Redirect to GullyBets community page
