@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { trackPageView, trackLead } from './utils/facebookPixel'
 
 export default function LandingPage() {
   const [timeLeft, setTimeLeft] = useState({
@@ -13,9 +14,7 @@ export default function LandingPage() {
     // Track page view
     if (typeof window !== 'undefined') {
       // Facebook Pixel tracking
-      if (window.fbq) {
-        window.fbq('track', 'PageView')
-      }
+      trackPageView()
       
       // Google Analytics tracking
       if (window.gtag) {
@@ -59,9 +58,7 @@ export default function LandingPage() {
   const handleCTAClick = () => {
     // Track CTA click
     if (typeof window !== 'undefined') {
-      if (window.fbq) {
-        window.fbq('track', 'Lead')
-      }
+      trackLead()
       if (window.gtag) {
         window.gtag('event', 'click', {
           event_category: 'CTA',
