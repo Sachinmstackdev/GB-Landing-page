@@ -49,17 +49,30 @@ export default function LandingPage() {
     return () => clearInterval(timer)
   }, [])
 
-  const handleCTAClick = () => {
-    // Track CTA click across both pixels
-    trackCustomEvent('CTAClick', {
-      content_name: 'Claim Cashback Button',
+  // Generic button click handler with distinct tracking for each button
+  const handleButtonClick = (buttonLocation) => {
+    // Prepare event parameters
+    const params = {
+      button_location: buttonLocation,
+      content_name: buttonLocation === 'hero_section' ? 'Claim Cashback Button' : 'Start Playing Button',
       content_category: 'Gaming',
       value: 5000,
       currency: 'INR'
+    }
+
+    // Track the specific button click
+    trackCustomEvent('ButtonClick', params)
+    
+    // Debug logging
+    console.log('ButtonClick fired:', {
+      button_location: params.button_location,
+      content_name: params.content_name
     })
     
-    // Redirect to GullyBets community page
-    window.location.href = 'https://gullybets.vip/commu'
+    // Delay redirect by 300ms to ensure pixel fires
+    setTimeout(() => {
+      window.location.href = 'https://gullybets.vip/commu'
+    }, 300)
   }
 
   return (
@@ -144,7 +157,7 @@ export default function LandingPage() {
           
           {/* CTA Button */}
           <button
-            onClick={handleCTAClick}
+            onClick={() => handleButtonClick('hero_section')}
             className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-dark-900 hover:from-yellow-400 hover:to-yellow-300 font-black py-4 px-12 rounded-full text-xl md:text-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 mx-auto mb-8"
           >
             <span className="text-2xl">⭐</span>
@@ -254,7 +267,7 @@ export default function LandingPage() {
             
             <div className="mt-8 text-center">
               <button
-                onClick={handleCTAClick}
+                onClick={() => handleButtonClick('bonus_stack_section')}
                 className="bg-yellow-500 text-dark-900 hover:bg-yellow-400 font-bold py-3 px-8 rounded-full text-lg shadow-xl transform hover:scale-105 transition-all duration-300"
               >
                 Start Playing Risk-Free Now
@@ -349,7 +362,7 @@ export default function LandingPage() {
       {/* Sticky Mobile CTA */}
       <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-gray-800 to-black p-4 z-40 md:hidden">
         <button
-          onClick={handleCTAClick}
+          onClick={() => handleButtonClick('mobile_sticky')}
           className="w-full bg-yellow-500 text-dark-900 hover:bg-yellow-400 font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300"
         >
           🚀 Start Playing Risk-Free
