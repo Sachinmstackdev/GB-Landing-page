@@ -351,7 +351,7 @@ export default function LandingPage() {
             Join thousands of players who are already earning daily rewards
           </p>
           <button
-            onClick={handleCTAClick}
+            onClick={() => handleButtonClick('final_cta_section')}
             className="bg-yellow-500 text-dark-900 hover:bg-yellow-400 font-bold py-3 px-8 rounded-full text-lg shadow-xl transform hover:scale-105 transition-all duration-300"
           >
             Start Playing Risk-Free Now
