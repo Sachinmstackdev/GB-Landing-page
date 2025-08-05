@@ -1,164 +1,170 @@
 # Play & Earn Landing Page
 
-A fully responsive, fast-loading landing page built with Next.js and Tailwind CSS to promote a "Play & Earn" app with 100% cashback offers.
+A modern Next.js landing page with multiple Meta (Facebook) pixel tracking capabilities.
 
-## 🚀 Features
+## 🎯 Multiple Meta Pixels Setup
 
-- **Fully Responsive Design** - Optimized for all devices
-- **Fast Loading** - Built with Next.js for optimal performance
-- **Manual Redirect** - Redirects to signup page only when users click CTA buttons
-- **Analytics Integration** - Facebook Pixel and Google Analytics tracking
-- **Mobile Optimized** - Sticky CTA for mobile users
-- **Modern UI** - Beautiful gradient design with animations
-- **SEO Optimized** - Meta tags and structured content
+This project supports multiple Meta (Facebook) pixels on a single website, which is useful for:
 
-## 📱 Sections
+- **Different Campaigns**: Track separate marketing campaigns
+- **Business Units**: Monitor different product lines or services
+- **A/B Testing**: Compare performance across different pixel configurations
+- **Client Tracking**: If you manage multiple client accounts
 
-1. **Hero Section** - Bold headline with 100% cashback offer
-2. **Why Choose Us** - Feature cards highlighting benefits
-3. **Bonus Stack** - Reward table showing all bonuses
-4. **FAQs** - Common questions and answers
-5. **Final CTA** - Call-to-action section
-6. **Sticky Mobile CTA** - Always visible on mobile
+## 📊 How to Add Multiple Pixels
 
-## 🛠️ Tech Stack
+### 1. Update Pixel IDs
 
-- **Next.js 14** - React framework
-- **Tailwind CSS** - Utility-first CSS framework
-- **JavaScript (JSX)** - No TypeScript
-- **Custom Animations** - CSS animations and transitions
+Edit the `PIXEL_IDS` array in `app/utils/facebookPixel.js`:
 
-## 📦 Installation
+```javascript
+export const PIXEL_IDS = [
+  '24482502841374853', // Your existing pixel
+  'YOUR_SECOND_PIXEL_ID', // Add your second pixel ID here
+  'YOUR_THIRD_PIXEL_ID',  // Add your third pixel ID here
+]
+```
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd gblanding
-   ```
+### 2. Update Component Pixel IDs
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+Also update the `pixelIds` array in `app/components/FacebookPixel.jsx`:
 
-3. **Configure Analytics** (Optional)
-   
-   Replace the placeholder IDs in `app/layout.jsx`:
-   - `FB_PIXEL_ID` with your Facebook Pixel ID
-   - `GA_TAG_ID` with your Google Analytics Tag ID
+```javascript
+const pixelIds = [
+  '24482502841374853', // Your existing pixel
+  'YOUR_SECOND_PIXEL_ID', // Add your second pixel ID here
+  'YOUR_THIRD_PIXEL_ID',  // Add your third pixel ID here
+]
+```
 
-4. **Run the development server**
-   ```bash
-   npm run dev
-   ```
+## 🚀 Usage Examples
 
-5. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+### Basic Event Tracking
 
-## 🚀 Deployment
+```javascript
+import { trackEvent, trackPurchase, trackLead } from './utils/facebookPixel'
 
-### Vercel (Recommended)
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Deploy automatically
+// Track a purchase across all pixels
+trackPurchase({
+  value: 5000,
+  currency: 'INR',
+  content_ids: ['product_123'],
+  content_name: 'Gaming Bonus'
+})
 
-### Other Platforms
+// Track a lead across all pixels
+trackLead({
+  content_name: 'Landing Page Lead',
+  content_category: 'Gaming',
+  value: 1000,
+  currency: 'INR'
+})
+
+// Track custom events
+trackEvent('GameStarted', {
+  content_name: 'Puzzle Game',
+  content_category: 'Gaming',
+  value: 100,
+  currency: 'INR'
+})
+```
+
+### Advanced Event Tracking
+
+```javascript
+// Track with custom parameters
+trackEvent('CustomEvent', {
+  content_name: 'Special Offer',
+  content_category: 'Promotion',
+  value: 2500,
+  currency: 'INR',
+  custom_parameter: 'special_value'
+}, {
+  eventID: 'custom_event_123',
+  eventSourceUrl: window.location.href
+})
+```
+
+## 📈 Event Types Supported
+
+- **PageView**: Automatic on page load
+- **Purchase**: For completed transactions
+- **AddToCart**: When items are added to cart
+- **Lead**: For form submissions and lead generation
+- **Custom Events**: Any custom event you define
+
+## 🔧 Configuration Options
+
+### Environment Variables (Optional)
+
+You can also use environment variables for pixel IDs:
+
+```javascript
+// In .env.local
+NEXT_PUBLIC_FACEBOOK_PIXEL_IDS=24482502841374853,YOUR_SECOND_PIXEL_ID,YOUR_THIRD_PIXEL_ID
+
+// In your code
+const pixelIds = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_IDS?.split(',') || ['24482502841374853']
+```
+
+### Conditional Pixel Loading
+
+You can conditionally load pixels based on certain criteria:
+
+```javascript
+const pixelIds = [
+  '24482502841374853', // Always load
+  ...(process.env.NODE_ENV === 'production' ? ['PRODUCTION_PIXEL_ID'] : []),
+  ...(userType === 'premium' ? ['PREMIUM_PIXEL_ID'] : [])
+]
+```
+
+## 🛠️ Installation
+
 ```bash
-npm run build
-npm start
+npm install
+npm run dev
 ```
 
-## ⚙️ Configuration
+## 📱 Features
 
-### Analytics Setup
+- ✅ Multiple Meta Pixel Support
+- ✅ Automatic PageView Tracking
+- ✅ Custom Event Tracking
+- ✅ Utility Functions for Easy Integration
+- ✅ Responsive Design
+- ✅ SEO Optimized
+- ✅ Google Tag Manager Integration
 
-1. **Facebook Pixel**
-   - Replace `FB_PIXEL_ID` in `app/layout.jsx`
-   - Tracks: PageView, Lead events
+## 🔍 Testing
 
-2. **Google Analytics**
-   - Replace `GA_TAG_ID` in `app/layout.jsx`
-   - Tracks: page_view, CTA clicks
+To test your pixels:
 
-### Customization
+1. Use Facebook Pixel Helper browser extension
+2. Check browser console for tracking events
+3. Verify in Facebook Events Manager
+4. Test with different pixel IDs
 
-- **Colors**: Edit `tailwind.config.js` for theme colors
-- **Content**: Modify text in `app/page.jsx`
-- **Redirect URL**: Change in `app/page.jsx` line 12
-- **Timing**: Adjust redirect delay in `app/page.jsx` line 11
+## 📚 Best Practices
 
-## 📊 Performance
-
-- **Core Web Vitals Optimized**
-- **Lighthouse Score**: 95+ (Performance, Accessibility, Best Practices, SEO)
-- **Mobile First Design**
-- **Optimized Images and Fonts**
-
-## 🎨 Design Features
-
-- **Dark Theme** with golden accents
-- **Gradient Backgrounds** for visual appeal
-- **Smooth Animations** and hover effects
-- **Modern Typography** using Inter font
-- **Responsive Grid Layouts**
-
-## 📱 Mobile Optimization
-
-- **Touch-friendly buttons**
-- **Sticky CTA bar** on mobile
-- **Optimized spacing** for small screens
-- **Fast loading** on mobile networks
-
-## 🔧 Customization Guide
-
-### Changing Colors
-Edit `tailwind.config.js`:
-```javascript
-colors: {
-  primary: {
-    500: '#your-color-here',
-    // ... other shades
-  }
-}
-```
-
-### Modifying Content
-Edit `app/page.jsx`:
-- Headlines and text content
-- CTA button text
-- FAQ questions and answers
-- Feature descriptions
-
-### Adjusting Redirect
-Change the URL in `app/page.jsx`:
-```javascript
-window.location.href = 'https://your-signup-url.com'
-```
-
-## 📈 Analytics Events
-
-The page tracks the following events:
-
-- **Page View** - When user lands on the page
-- **Lead** - When user clicks any CTA button
-- **CTA Click** - Detailed tracking of button interactions
+1. **Unique Event IDs**: Each pixel gets a unique event ID to prevent duplicates
+2. **Consistent Parameters**: Use consistent parameter names across all pixels
+3. **Error Handling**: The utility functions include error handling for missing pixels
+4. **Performance**: Events are tracked efficiently without blocking the UI
 
 ## 🚨 Important Notes
 
-- **No gambling terms** used in content
-- **Mobile-first** design approach
-- **Fast loading** optimized for ads
-- **SEO friendly** structure
-- **Accessibility** compliant
+- Each pixel ID must be valid and active in your Facebook Business Manager
+- Test thoroughly in development before deploying to production
+- Monitor your Facebook Events Manager to ensure all pixels are receiving data
+- Consider Facebook's data usage policies and user privacy
 
-## 📄 License
+## 📞 Support
 
-This project is for educational and commercial use.
-
-## 🤝 Support
-
-For questions or issues, please check the code comments or create an issue in the repository.
+For issues with Meta pixels, check:
+- [Facebook Pixel Documentation](https://developers.facebook.com/docs/facebook-pixel/)
+- [Facebook Business Help Center](https://www.facebook.com/business/help)
 
 ---
 
-**Built with ❤️ using Next.js and Tailwind CSS** 
+**Note**: Replace `YOUR_SECOND_PIXEL_ID` and `YOUR_THIRD_PIXEL_ID` with your actual Facebook pixel IDs from Facebook Business Manager. 
