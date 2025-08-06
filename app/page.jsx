@@ -99,15 +99,15 @@ export default function LandingPage() {
     <div className="min-h-screen text-white">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4 py-8 overflow-hidden">
-        {/* Background Image */}
+                {/* Background Image */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `url('https://res.cloudinary.com/twosapiens/image/upload/v1754423363/ChatGPT_Image_Aug_5_2025_02_58_29_AM_zgfxuy.png')`
           }}
         ></div>
-        {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        {/* Light overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/30"></div>
         <div className="relative z-10 text-center max-w-4xl mx-auto">
           {/* Countdown Timer */}
           <div className="mb-8">
@@ -372,8 +372,7 @@ export default function LandingPage() {
 
       {/* Final CTA Section */}
       <section className="py-16 px-4 bg-gradient-to-br from-gray-900 to-black">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900/90 to-black/80"></div>
-        <div className="max-w-4xl mx-auto text-center relative z-10">
+        <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
             Ready to Start Earning? <span className="text-2xl">🚀</span>
           </h2>
