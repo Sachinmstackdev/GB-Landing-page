@@ -49,8 +49,8 @@ export default function LandingPage() {
     return () => clearInterval(timer)
   }, [])
 
-  // Generic button click handler with distinct tracking for each button
-  const handleButtonClick = (buttonLocation) => {
+  // Main website button click handler
+  const handleMainButtonClick = (buttonLocation) => {
     // Prepare event parameters
     const params = {
       button_location: buttonLocation,
@@ -70,6 +70,26 @@ export default function LandingPage() {
     })
     
     // Delay redirect by 300ms to ensure pixel fires
+    setTimeout(() => {
+      window.location.href = 'https://gullybets.vip/metaad'
+    }, 300)
+  }
+
+  // Telegram community button click handler
+  const handleTelegramButtonClick = () => {
+    // Track the Telegram button click
+    trackCustomEvent('ButtonClick', {
+      button_location: 'telegram_community',
+      content_name: 'Join Telegram Community',
+      content_category: 'Social',
+      value: 100,
+      currency: 'INR'
+    })
+    
+    // Debug logging
+    console.log('TelegramButtonClick fired')
+    
+    // Redirect to Telegram community
     setTimeout(() => {
       window.location.href = 'https://gullybets.vip/tgcommunity'
     }, 300)
@@ -157,12 +177,22 @@ export default function LandingPage() {
           
           {/* CTA Button */}
           <button
-            onClick={() => handleButtonClick('hero_section')}
+            onClick={() => handleMainButtonClick('hero_section')}
             className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-dark-900 hover:from-yellow-400 hover:to-yellow-300 font-black py-4 px-12 rounded-full text-xl md:text-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 mx-auto mb-8"
           >
             <span className="text-2xl">⭐</span>
             <span>Claim My Cashback Now</span>
             <span className="text-2xl">⭐</span>
+          </button>
+          
+          {/* Telegram Community Button */}
+          <button
+            onClick={handleTelegramButtonClick}
+            className="bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 font-bold py-3 px-8 rounded-full text-lg shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 mx-auto mb-8"
+          >
+            <span className="text-xl">📱</span>
+            <span>Join Our Telegram Community</span>
+            <span className="text-xl">📱</span>
           </button>
           
           {/* Trust Indicators */}
@@ -267,7 +297,7 @@ export default function LandingPage() {
             
             <div className="mt-8 text-center">
               <button
-                onClick={() => handleButtonClick('bonus_stack_section')}
+                onClick={() => handleMainButtonClick('bonus_stack_section')}
                 className="bg-yellow-500 text-dark-900 hover:bg-yellow-400 font-bold py-3 px-8 rounded-full text-lg shadow-xl transform hover:scale-105 transition-all duration-300"
               >
                 Start Playing Risk-Free Now
@@ -351,7 +381,7 @@ export default function LandingPage() {
             Join thousands of players who are already earning daily rewards
           </p>
           <button
-            onClick={() => handleButtonClick('final_cta_section')}
+            onClick={() => handleMainButtonClick('final_cta_section')}
             className="bg-yellow-500 text-dark-900 hover:bg-yellow-400 font-bold py-3 px-8 rounded-full text-lg shadow-xl transform hover:scale-105 transition-all duration-300"
           >
             Start Playing Risk-Free Now
@@ -362,7 +392,7 @@ export default function LandingPage() {
       {/* Sticky Mobile CTA */}
       <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-gray-800 to-black p-4 z-40 md:hidden">
         <button
-          onClick={() => handleButtonClick('mobile_sticky')}
+          onClick={() => handleMainButtonClick('mobile_sticky')}
           className="w-full bg-yellow-500 text-dark-900 hover:bg-yellow-400 font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300"
         >
           🚀 Start Playing Risk-Free
