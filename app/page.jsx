@@ -91,7 +91,7 @@ export default function LandingPage() {
     
     // Redirect to Telegram community
     setTimeout(() => {
-      window.location.href = 'https://gullybets.vip/tgcommunity'
+      window.location.href = 'https://t.me/GullyBetcommunity'
     }, 300)
   }
 
