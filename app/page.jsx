@@ -71,7 +71,7 @@ export default function LandingPage() {
     
     // Delay redirect by 300ms to ensure pixel fires
     setTimeout(() => {
-      window.location.href = 'https://gullybets.vip/commu'
+      window.location.href = 'https://gullybets.vip/tgcommunity'
     }, 300)
   }
 
